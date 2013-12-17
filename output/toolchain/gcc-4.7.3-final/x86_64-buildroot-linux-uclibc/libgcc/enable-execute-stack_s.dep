@@ -1,0 +1,1 @@
+enable-execute-stack_s.o: enable-execute-stack.c

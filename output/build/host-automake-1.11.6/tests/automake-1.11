@@ -1,0 +1,15 @@
+#!/bin/sh
+# tests/automake-1.11.  Generated from automake.in by configure.
+
+# Be Bourne compatible
+if test -n "${ZSH_VERSION+set}" && (emulate sh) >/dev/null 2>&1; then
+  emulate sh
+  NULLCMD=:
+  # Zsh 3.x and 4.x performs word splitting on ${1+"$@"}, which
+  # is contrary to our usage.  Disable this feature.
+  alias -g '${1+"$@"}'='"$@"'
+fi
+
+perllibdir="/home/lsoave/Docker/TMP/buildroot-2013.05/output/build/host-automake-1.11.6/lib:/home/lsoave/Docker/TMP/buildroot-2013.05/output/build/host-automake-1.11.6/lib"
+export perllibdir
+exec "/home/lsoave/Docker/TMP/buildroot-2013.05/output/build/host-automake-1.11.6/automake" "--libdir=/home/lsoave/Docker/TMP/buildroot-2013.05/output/build/host-automake-1.11.6/lib" ${1+"$@"}

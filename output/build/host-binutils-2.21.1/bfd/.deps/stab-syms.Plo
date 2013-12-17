@@ -1,0 +1,22 @@
+stab-syms.lo: stab-syms.c /usr/include/stdc-predef.h \
+ /usr/include/x86_64-linux-gnu/bits/predefs.h bfd.h ../include/ansidecl.h \
+ ../include/symcat.h libaout.h ../include/bfdlink.h \
+ ../include/aout/aout64.h ../include/aout/stab.def
+
+/usr/include/stdc-predef.h:
+
+/usr/include/x86_64-linux-gnu/bits/predefs.h:
+
+bfd.h:
+
+../include/ansidecl.h:
+
+../include/symcat.h:
+
+libaout.h:
+
+../include/bfdlink.h:
+
+../include/aout/aout64.h:
+
+../include/aout/stab.def:

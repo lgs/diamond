@@ -1,0 +1,508 @@
+2010-06-09  Gary V. Vaughan  <gary@gnu.org>
+
+	Prepare for next release.
+	* configure.ac, libltdl/configure.ac (AC_INIT): Bump version number
+	to 2.2.10.
+	* NEWS: Update version number.
+
+	Fix a quoting bug with ./commit -a 'A U Thor'.
+	* clcommit.m4sh (func_commit): Use func_show_eval when calling
+	git, so that the previously func_quote_for_eval()ed $git_flags is
+	expanded properly.
+
+2009-09-15  Peter Rosin  <peda@lysator.liu.se>
+
+	Don't try the MSYS libdir path on MinGW.
+	* libltdl/ltdl.c (parse_dotla_file) [mingw]: The absolute
+	libdir path in the .la file is recorded as an MSYS (POSIX
+	style) path. Make sure it isn't tried when locating the
+	shared library.
+	* NEWS: Updated.
+
+2010-06-09  Gary V. Vaughan  <gary@gnu.org>
+
+	Simplify license variations, and add missing license texts.
+	* ChangeLog, ChangeLog.1996, ChangeLog.1997, ChangeLog.1998,
+	ChangeLog.1999, ChangeLog.2000, ChangeLog.2001, ChangeLog.2002,
+	ChangeLog.2003, ChangeLog.2004, ChangeLog.2005, ChangeLog.2006,
+	ChangeLog.2007, ChangeLog.2008, ChangeLog.2009, NEWS: Add
+	all-permissive license.
+	* HACKING, README, README.alpha, TODO: Relax license to RMS
+	encouraged all-permissive terms.
+	* libltdl/README: Ditto. I added the original license text in
+	2007, and there's no need for it to be so long for such a trivial
+	file.
+	* libltdl/config/getopt.m4sh, libltdl/general.m4sh: Cvs-utils is
+	dead, and I am the author of these files, so consolidated license
+	terms to match regular Libtool licensing.
+	* HACKING (Licensing Rules): Update wording, and list of files for
+	the all permissive license.
+	(GPL with CVS-Utils exception clause): Removed.  No files have these 
+	license any more.
+	(GPL with Libtool exception clause): Ditto, only libltdl/README
+	used to be distributed with this variation.
+	* AUTHORS: Add GPL license text.
+	
+	Fix a type in the 2.2.8 release notes.
+	* NEWS: s/ romoted/ promoted/ in the 2.2.8 release notes.
+
+	Don't warn about the blank line inserted into git commit message.
+	* clcommit.m4sh: When searching for accidental commits of mutliple
+	changes, ignore the second line of the message, which we inserted
+	earlier to support "git log --oneline".
+
+	Enable correct extraction of multiline copyright from --version.
+	* libltdl/config/getopt.m4sh: Wrap copyright notice at 76
+	columns.
+	(func_version): Don't omit spaces when merging multiline copyright
+	notices.
+	* clcommit.m4sh, libtoolize.m4sh: Wrap copyright notice at 76
+	columns.
+
+	* NEWS (2.2.8): BlueGene compiler tests were performed on BG/P
+	systems, not BG/L.
+	Reported by Christian Rössel <christian.roessel@gmx.de>
+
+2010-06-08  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	Fix testsuite helper macros to not hide failure.
+	* tests/testsuite.at (LT_AT_CONFIGURE, LT_AT_MAKE):
+	Do not wrap AT_CHECK in a subshell, so that failures are
+	properly propagated; instead, move environment changes inside
+	the AT_CHECK code.
+	Report and analysis by Peter Rosin.
+
+	Avoid autom4te warning about unnamed diversion.
+	* libltdl/config/getopt.m4sh: Use diversion name KILL not -1.
+
+2010-06-07  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	Make versioning test stricter for w32, enable shared libs.
+	* tests/versioning.at (versioning): Add -no-undefined to
+	LDFLAGS.
+	(test_uninstalled): Also move $bindir out of the way
+	temporarily.
+
+	Fix versioning test for LDFLAGS=-Wl,--as-needed.
+	* tests/versioning.at (versioning): For the library update
+	hypotheses, ensure the unchanged library libb isn't accidentally
+	relinked against the new liba, by not reinstalling libb.
+	Fixes testsuite failure for the incompatible update case with
+	LDFLAGS=-Wl,--as-needed.
+	* THANKS: Update.
+	Report by Ryan Hill.
+
+2010-06-06  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	Rewrite manual intro to be gender-neutral.
+	* doc/libtool.texi (Introduction): Use gender-neutral
+	formulation when addressing developers.
+
+2010-06-05  Gary V. Vaughan  <gary@gnu.org>
+
+	Update and simplify all m4sh scripts to use latest getopt.m4sh.
+	* clcommit.m4sh, libltdl/config/mailnotify.m4sh: Rewrite option
+	parsing loop over M4SH_GETOPTS macro, and adjust all clients of
+	option variables to use generated option names.
+
+	Add missing quote for literal ? in a shell case statement.
+	* libltdl/config/getopt.m4sh (m4go_shortnoargs): Quote initial ?
+	correctly for use in a shell case statement.
+
+	Quote command line arguments after --rcfile properly.
+	* libltdl/config/announce-gen.m4sh (--rcfile): Quote remaining
+	arguments shell variable expression correctly for eval.
+	
+	Shift correctly in numbered option argument collection.
+	* libltdl/config/getopt.m4sh (_m4go_option): Argument list also
+	needs to be `shift'ed in the shell option loop after processing a
+	numbered argument collection.
+
+	Fetch from new upstream host for config.guess and config.sub.
+	* Makefile.maint (WGET_CGIT): Location of newest config.guess and
+	config.sub upstream.
+	(fetch): Fetch config.guess and config.sub from WGET_CGIT, rather
+	than no-longer-updating WGET_SGO location.
+
+	Update generated upload directive file format to v1.1.
+	* Makefile.maint (git-dist, diffs): Update to generate v1.1 format
+	directive files for ftp://ftp-upload.gnu.org/incoming/ftp.
+
+	Fix web manual generation details in release instructions.
+	* HACKING (Release Procedure): Move the instruction for generating
+	web manuals for a new release to before the instruction that bumps
+	the version numbers to the post release values.
+
+	Set SCM version number to 2.2.9a.
+	* configure.ac, libltdl/configure.ac (AC_INIT): Bump version
+	number to 2.2.9a.
+	* NEWS: Updated.
+
+	GNU Libtool 2.2.8 was released.
+
+	Prepare for next release.
+	* configure.ac, libltdl/configure.ac (AC_INIT): Bump version
+	number to 2.2.8.
+	* NEWS: Update version number.
+	* INSTALL, libltdl/config/install-sh, libltdl/config/config.guess,
+	libltdl/config/config.sub, libltdl/config/texinfo.tex: Updated
+	from canonical source.
+
+	Provide an m4sh reimplementation of announce-gen.
+	* libltdl/config/getopt.m4sh (M4SH_GETOPTS): New macro that takes
+	a quoted m4 list of command line options to be parsed, and
+	generates the shell code to parse those options and collect the
+	results into appropriately named 'opt_xxx' shell variables.  Also,
+	add some private supporting macros, and improve the comments
+	radically.
+	* libltdl/config/announce-gen.m4sh: New file, to generate and
+	optionally post (an enhancement over the gnulib perl script of the
+	same name) a release announcement.
+	* Makefile.maint (announce-gen): Build a new announce-gen script
+	in the build directory, from the contents of
+	libltdl/config/announce-gen.m4sh.
+	* HACKING (Release Procedure): Update the instructions to use
+	announce-gen.
+	(Alpha release note template, Full release note template):
+	Removed.
+
+2010-05-22  Gary V. Vaughan  <gary@gnu.org>
+
+	Support "git log --oneline" in generated commit messages.
+	* clcommit.m4sh (func_check_commit_msg): Insert an empty line
+	between the ChangeLog entry summary line and the ChangeLog entry
+	body, so that "git log --oneline" works properly.
+	Bump copyright and version number.
+	Reported by Ralf Wildenhues <Ralf.Wildenhues@gmx.de>
+
+2010-05-22  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	* HACKING: Set Reply-To: in announcement emails.
+
+2010-05-21  Gary V. Vaughan  <gary@gnu.org>
+
+	Set SCM version number to 2.2.7c.
+	* configure.ac, libltdl/configure.ac (AC_INIT): Bump version
+	number to 2.2.7c.
+	* NEWS: Updated.
+
+	GNU Libtool 2.2.7b  was released.
+
+	Prepare for next release candidate.
+	* configure.ac, libltdl/configure.ac (AC_INIT): Bump version
+	number to 2.2.7b.
+	* libltdl/m4/libtool.m4, libltdl/m4/ltdl.m4,
+	libltdl/m4/ltoptions.m4, libltdl/m4/lt~obsolete.m4: These files
+	have been updated without a serial bump since the last release.
+	* libltdl/Makefile.inc (LTDL_VERSION_INFO): Bump Revision, to
+	account for bugfixes since the last release.
+	* libltdl/config/install-sh, libltdl/config/config.guess,
+	libltdl/config/config.sub, libltdl/config/texinfo.tex,
+	INSTALL: Updated from canonical source.
+	* NEWS: Update with missing entries from ChangeLog.
+	* HACKING: Note workaround for developer tool-path leakage bug.
+
+	Skip some tests in --disable-ltdl-install mode.
+	* tests/dlloader-api.at, tests/exceptions.at,
+	tests/lalib-syntax.at, tests/loadlibrary.at,
+	tests/lt_dlopenext.at, tests/resident.at: Detect when these
+	tests try to link against the not installed libltdl.la, and
+	skip rather than FAIL.
+
+2010-05-05  Peter Rosin  <peda@lysator.liu.se>
+
+	Clarify versioning algorithm documentation.
+	* doc/libtool.texi (Updating version info): Be explicit
+	about setting age to zero on interface change.
+	Reported by Jef Driesen <jefdriesen@hotmail.com>
+
+2010-05-04  Peter O'Gorman  <peter@pogma.com>
+
+	Ranlib is required with -force_load and fat archives.
+	* libltdl/m4/libtool.m4 (_LT_REQUIRED_DARWIN_CHECKS): Run
+	ranlib.
+	Reported by Jeremy Huddleston <jeremyhu@apple.com>
+
+2010-04-09  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	Fix incompatible struct declarations.
+	* doc/libtool.texi (Dlpreopening): Remove broken documentation
+	of lt_dlsymbol and lt_dlsymlist.  Document typedef lt_dlsymlist
+	and symbol lt_preloaded_symbols according to the implementation.
+	* tests/demo/dlmain.c (lt_symlist): Make struct anonymous ...
+	(lt_dlsymlist): ... and typedef to this name.
+	(lt_preloaded_symbols, main): Adjust.
+	* tests/pdemo/longer_file_name_dlmain.c: Likewise.
+
+2010-04-04  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	Use linker_flags not compiler_flags with $LD.
+	* libltdl/m4/libtool.m4 (_LT_LINKER_SHLIBS) [linux]
+	<archive_cmds, archive_expsym_cmds>: With xlf and bgxlf
+	compilers, when linking with $LD, use $linker_flags not
+	$compiler_flags.
+
+2010-03-31  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	Add FAQ, and FAQ entry for flags stripped at library link time.
+	* doc/libtool.texi (FAQ, Stripped link flags): New nodes.
+	(Wrapper executables): Replace bug address with macro.
+	(Compile mode, Link mode): Document `-Wc,' and `-Xcompiler '
+	semantics better.
+	* libltdl/config/ltmain.m4sh (func_mode_link): Rewrite comment
+	for the flags that are passed through.
+	Prompted by reports from Simon Richter <Simon.Richter@hogyros.de>,
+	Török Edwin <edwintorok@gmail.com> and
+	Åke Sandgren <ake.sandgren@hpc2n.umu.se>.
+
+2010-03-28  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	Fix preloader symbol list declaration in libltdl.
+	* libltdl/ltdl.c (preloaded_symbols): Fix declaration to include
+	array brackets.
+	(lt_dlinit): Do not take address of preloaded_symbols.
+
+	Fix typo in libtool --help output.
+	* libltdl/config/ltmain.m4sh (func_mode_help): Fix typo in help
+	output.
+
+	Fix a couple of documentation errors.
+	* doc/libtool.texi (Autoconf macros): Improve hyphenation.
+	(Using libltdl): libltdl uses the Lesser General Public License,
+	not the Library General Public License.
+
+	Do not use @sc nor @acronym in the manual.
+	* doc/libtool.texi: Remove all usage of @sc.
+
+2010-03-19  Chris Demetriou  <cgd@google.com>
+
+	Sort output of 'find' to enable deterministic builds.
+	* libltdl/config/ltmain.m4sh (func_extract_archives): Sort
+	output of 'find'.
+	* libltdl/m4/libtool.m4 (_LT_LANG_CXX_CONFIG): Likewise.
+	* THANKS: Update.
+
+2010-03-19  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	Unconditionally normalize LC_ALL, LANGUAGE in libtool script.
+	* libltdl/config/ltmain.m4sh: Unconditionally set LC_ALL and
+	LANGUAGE to 'C', to avoid semantic differences on MinGW under
+	Chines locale.  SCO issues with e.g. LANG=C are not known to
+	be relevant today any more.
+	Report by Pete Batard <pbatard@gmail.com> and Xiaofan Chen
+	<xiaofanc@gmail.com>.
+
+2010-03-17  Peter Rosin  <peda@lysator.liu.se>
+
+	Preserve the last error when restoring the error mode.
+	* libltdl/loaders/loadlibrary.c (wm_open): Don't rely on
+	SetThreadErrorMode (or SetErrorMode) to not clobber the last
+	error.
+	Report by Ralf Wildenhues.
+
+	Use Get/SetThreadErrorMode if they are available.
+	* libltdl/loaders/loadlibrary.c (wrap_geterrormode): Replaced...
+	(wrap_getthreaderrormode): ...by this function that checks
+	first for GetThreadErrorMode, then GetErrorMode and makes use
+	of either of those or...
+	(fallback_getthreaderrormode): ...else falls back to this
+	replacement function that implements the old workaround, which
+	was previously implemented in...
+	(fallback_geterrormode): ...this now renamed function.
+	(geterrormode): Replaced...
+	(getthreaderrormode): ...by this function pointer that points
+	at either of wrap_getthreaderrormode, GetThreadErrorMode,
+	GetErrorMode or fallback_getthreaderrormode.
+	(wrap_setthreaderrormode): New function that checks if
+	SetThreadErrorMode is supported by the system and makes use of
+	it if it is.
+	(fallback_setthreaderrormode): New function that is used
+	otherwise that implements the old version using SetErrorMode.
+	(setthreaderrormode): New function pointer that points at
+	either of wrap_setthreaderrormode, SetThreadErrorMode or
+	fallback_setthreaderrormode.
+	(vm_open): Adjust to the above.
+
+2010-02-28  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	Detect Sun compiler suite with 'sun'-prefixed names.
+	* libltdl/m4/libtool.m4 (_LT_COMPILER_PIC, _LT_LANG_CXX_CONFIG)
+	(_LT_SYS_HIDDEN_LIBDEPS) [solaris]: Accept compiler names sunCC,
+	sunf77, sunf90, sunf95 in addition to CC, f77, f90, f95.
+	* NEWS: Update.
+	Report by Vadim Zeitlin.
+
+2010-02-28  Pierre Ossman  <ossman@ossman.lkpg.cendio.se>  (tiny change)
+	    Ralf Wildenhues <Ralf.Wildenhues@gmx.de>
+
+	Fix deplibs check fallback for 64-bit Windows and Windows CE.
+	* libltdl/m4/libtool.m4 (_LT_CHECK_MAGIC_METHOD): Accept file formats
+	'pe-arm-wince' and 'pe-x86-64'.  Add note about consistency with ...
+	* libltdl/config/ltmain.m4sh (func_win32_libid): ... the respective
+	pattern here; sync pattern from the former.
+	* tests/deplibs-mingw.at (deplibs without file command): New
+	file, new test.
+	* Makefile.am (TESTSUITE_AT): Update.
+	* NEWS: Update.
+
+2010-02-24  Scott McCreary  <scottmc2@gmail.com>  (tiny change)
+
+	Update search path on Haiku for legacy system directory.
+	* libltdl/m4/libtool.m4 (_LT_SYS_DYNAMIC_LINKER) [haiku]
+	<sys_lib_dlsearch_path_spec>: Replace legacy
+	/boot/beos/system/lib directory with /boot/system/lib.
+	* THANKS: Update.
+
+2010-02-22  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	manual: fix detailmenu ordering.
+	* doc/libtool.texi (Top): Add section for `Linking executables'
+	in the detailmenu.
+
+2010-02-21  Charles Wilson <libtool@cwilson.fastmail.fm>
+
+	Guard against strerror()==NULL
+	* libltdl/config/ltmain.m4sh (func_emit_cwrapperexe_src:main):
+	Check return value of strerror() using nonnull().
+	(func_emit_cwrapperexe_src:find_executable): Ditto.
+	(func_emit_cwrapperexe_src:chase_symlinks): Ditto.
+
+2010-02-21  Charles Wilson <libtool@cwilson.fastmail.fm>
+
+	Document wrapper changes.
+	* NEWS: Indicate new feature and incompatibility.
+	* doc/libtool.texi [detailmenu]: Add reference to subsection
+	'Wrapper executables for programs', in Platform Quirks category.
+	[Linking executables]: Mention wrapper executables, in
+	addition to wrapper scripts. Add menu referencing subsection
+	'Wrapper executables for programs'.
+	[Wrapper executables for programs]: New subsection. Documents
+	cwrapper rationale and command line options.
+
+2010-02-21  Charles Wilson <libtool@cwilson.fastmail.fm>
+
+	Add --lt-* options to shell wrapper
+	* libltdl/config/ltmain.m4sh (func_emit_wrapper): Call
+	func_parse_lt_options early. Use func_exec_program.
+	(func_emit_wrapper:func_parse_lt_options): New function.
+	(func_emit_wrapper:func_lt_dump_args): New function.
+	(func_emit_wrapper:func_exec_program_core): New function.
+	(func_emit_wrapper:func_exec_program): New function.
+
+2010-02-21  Charles Wilson <libtool@cwilson.fastmail.fm>
+
+	Enable runtime cwrapper debugging; add tests
+	* libltdl/config/ltmain.m4sh (func_emit_cwrapperexe_src):
+	Update comments. Initialize program_name. Eliminate _LENGTH
+	variables for string constants. In debug mode, print a
+	banner with known content before any other output. Remove
+	LTWRAPPER_DEBUGPRINTF macro. Add constants and variables
+	to support new --lt-debug option.
+	(func_emit_cwrapperexe_src:ltwrapper_debugprintf): Renamed to...
+	(func_emit_cwrapperexe_src:lt_debugprintf): this. Only print
+	messages if lt_debug != 0. Ensure appearance of messages
+	conforms to GCS.
+	(func_emit_cwrapperexe_src:lt_fatal): Ditto.
+	(func_emit_cwrapperexe_src:lt_error_core): Ditto.
+	(func_emit_cwrapperexe_src): Update all callers to lt_fatal.
+	Update all users of LTWRAPPER_DEBUGPRINTF (()) to call
+	lt_debugprintf () directly.
+	(func_emit_cwrapperexe_src:main): Consolidate option parsing.
+	Ensure first use of lt_debugprintf occurs after option parsing.
+	Add stanza to parse for --lt-debug and set lt_debug variable.
+	Use strcmp rather than strncmp, where safe.
+	* tests/cwrapper.at: Add new tests for --lt-debug and
+	-DLT_DEBUGWRAPPER.
+
+2010-01-31  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	Use --email with gendocs.sh.
+	* Makefile.maint (web-manual): Pass bug reporting address to
+	gendocs.sh.
+
+	Make testsuite code C++ clean again.
+	* tests/resident.at (resident modules): Fix for C++.
+
+2010-01-29  Peter Rosin  <peda@lysator.liu.se>
+	    Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	Testsuite exposure for dlloader API.
+	* tests/dlloader-api.at: New file, new test.
+	* Makefile.am (TESTSUITE_AT): Update.
+
+2010-01-29  Peter Rosin  <peda@lysator.liu.se>
+
+	* tests/loadlibrary.at: Fix C++ issues.
+
+2010-01-20  Peter Rosin  <peda@lysator.liu.se>
+
+	Report proper errors from the loadlibrary loader.
+	* libltdl/loaders/loadlibrary.c (loadlibraryerror): New
+	helper function that returns the latest Windows error as a
+	string, or the provided default string on failure to do so.
+	(LOADLIB_SETERROR): New macro that wraps previous to make it
+	easy to use.
+	(vm_open, vm_close, vm_sym): Make use of previous.
+	(LOCALFREE): New macro to help free the Windows error string.
+	(vl_exit): Make use of previous.
+	* tests/loadlibarry.at: New file, new test that makes sure
+	the loadlibrary loader reports non-standard error messages.
+	* Makefile.am (TESTSUITE_AT): Add above test.
+
+2010-01-02  Peter Rosin  <peda@lysator.liu.se>
+
+	Use GetErrorMode if it is available.
+	* libltdl/loaders/loadlibrary.c (wrap_geterrormode): New
+	function that checks if GetErrorMode is supported by the
+	system and makes use of it if it is.
+	(fallback_geterrormode): New function that is used otherwise
+	that implements the old workaround.
+	(geterrormode): New function pointer that points at either
+	of the above or directly at GetErrorMode.
+	(vm_open): Make use of the above.
+
+2010-01-11  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	Ensure functions from resident modules work in atexit handlers.
+	* tests/resident.at (resident modules): New file, new test.
+	* Makefile.am (TESTSUITE_AT): Adjust.
+	Report by Bob Friesenhahn.
+
+	Testsuite exposure for relative output file names and deplibs.
+	* tests/deplib-in-subdir.at (deplib in subdir): New file, new
+	test.
+	* Makefile.am (TESTSUITE_AT): Update.
+	Prompted by report from Bob Friesenhahn.
+
+2010-01-11  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+	    Bob Friesenhahn  <bfriesen@simple.dallas.tx.us>
+
+	Testsuite exposure for C++ exception handling.
+	* tests/exceptions.at (C++ exception handling): New file, new
+	test.
+	* Makefile.am (TESTSUITE_AT): Update.
+	Report by Bob Friesenhahn.
+
+2010-01-06  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	Bump copyright years.
+	* ChangeLog.2009: New, rotated from ...
+	* ChangeLog: ... here.
+	* Makefile.am (EXTRA_DIST): Add ChangeLog.2009.
+	* NEWS, libltdl/config/ltmain.m4sh: Bump copyright years.
+	* libltdl/m4/libtool.m4 (_LT_COPYING, LT_OUTPUT): Likewise.
+	* libtoolize.m4sh: Likewise.
+
+Continued in ChangeLog.2009
+-- 
+  Copyright (C) 1996, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
+  2006, 2007, 2008, 2009, 2010 Free Software Foundation, Inc.
+
+  This file is part of GNU Libtool.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.  This file is offered as-is,
+without warranty of any kind.
+
+vim:tw=72

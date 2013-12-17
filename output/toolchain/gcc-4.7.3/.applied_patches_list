@@ -1,0 +1,6 @@
+100-uclibc-conf.patch
+301-missing-execinfo_h.patch
+302-c99-snprintf.patch
+305-libmudflap-susv3-legacy.patch
+810-arm-softfloat-libgcc.patch
+830-arm_unbreak_armv4t.patch

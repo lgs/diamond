@@ -1,0 +1,5 @@
+#!/bin/sh
+. ./defs || exit 1
+
+run_fakeroot -- \
+ ${posixshell} -c 'RET="$('"${srcdir}"'/echo_arg 3 a b c d e)"; echo RET=$RET; test "$RET" = "b"'

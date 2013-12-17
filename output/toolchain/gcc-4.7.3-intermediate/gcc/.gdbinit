@@ -1,0 +1,11 @@
+dir .
+dir /home/lsoave/Docker/TMP/buildroot-2013.05/output/toolchain/gcc-4.7.3/gcc
+dir /home/lsoave/Docker/TMP/buildroot-2013.05/output/toolchain/gcc-4.7.3/gcc/ada
+dir /home/lsoave/Docker/TMP/buildroot-2013.05/output/toolchain/gcc-4.7.3/gcc/cp
+dir /home/lsoave/Docker/TMP/buildroot-2013.05/output/toolchain/gcc-4.7.3/gcc/fortran
+dir /home/lsoave/Docker/TMP/buildroot-2013.05/output/toolchain/gcc-4.7.3/gcc/go
+dir /home/lsoave/Docker/TMP/buildroot-2013.05/output/toolchain/gcc-4.7.3/gcc/java
+dir /home/lsoave/Docker/TMP/buildroot-2013.05/output/toolchain/gcc-4.7.3/gcc/lto
+dir /home/lsoave/Docker/TMP/buildroot-2013.05/output/toolchain/gcc-4.7.3/gcc/objc
+dir /home/lsoave/Docker/TMP/buildroot-2013.05/output/toolchain/gcc-4.7.3/gcc/objcp
+source /home/lsoave/Docker/TMP/buildroot-2013.05/output/toolchain/gcc-4.7.3/gcc/gdbinit.in

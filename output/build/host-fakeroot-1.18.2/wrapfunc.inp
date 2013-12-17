@@ -1,0 +1,181 @@
+/* This file lists the functions that are wrapped by libtricks, their     */ 
+/* arguments, and the way to call them. This is then used to generate	  */ 
+/* the wrapper functions declarations in wrapped.h, the wrapper functions */ 
+/* definitions wrapdef.h (actually, only assignments of the function 	  */ 
+/* variables), the structure of wrapped functions in wrapstruct.h,	  */ 
+/* and the temporary definitions (that hold until one of them is executed)*/ 
+/* in wraptmpf.h                                                          */ 
+/**/                                                                      */
+/**/									  */
+/* each line of this file lists 4 fields, seperated by a ";".		  */
+/* The first field is the name of the wrapped function, then it's return  */
+/* value. After that come the function arguments with types, and the last */
+/* field contains the function arguments without types.                   */
+/**/
+
+/* __*xstat are used on glibc systems instead of just *xstat. */
+/**/
+
+WRAP_LSTAT;int;LSTAT_ARG(int ver, const char *file_name, struct stat *buf);LSTAT_ARG(ver, file_name, buf);LSTAT
+WRAP_STAT;int;STAT_ARG(int ver, const char *file_name, struct stat *buf);STAT_ARG(ver, file_name, buf);STAT
+WRAP_FSTAT;int;FSTAT_ARG(int ver, int fd, struct stat *buf);FSTAT_ARG(ver, fd, buf);FSTAT
+#ifdef HAVE_FSTATAT
+WRAP_FSTATAT;int;FSTATAT_ARG(int ver, int dir_fd, const char *path, struct stat *buf, int flags);FSTATAT_ARG(ver, dir_fd, path, buf, flags);FSTATAT
+#endif /* HAVE_FSTATAT */
+
+#ifdef STAT64_SUPPORT
+WRAP_LSTAT64;int;LSTAT64_ARG(int ver, const char *file_name, struct stat64 *buf);LSTAT64_ARG(ver, file_name, buf);LSTAT64
+WRAP_STAT64;int;STAT64_ARG(int ver, const char *file_name, struct stat64 *buf);STAT64_ARG(ver, file_name, buf);STAT64
+WRAP_FSTAT64;int;FSTAT64_ARG(int ver, int fd, struct stat64 *buf);FSTAT64_ARG(ver, fd, buf);FSTAT64
+#ifdef HAVE_FSTATAT
+WRAP_FSTATAT64;int;FSTATAT64_ARG(int ver, int dir_fd, const char *path, struct stat64 *buf, int flags);FSTATAT64_ARG(ver, dir_fd, path, buf, flags);FSTATAT64
+#endif /* HAVE_FSTATAT */
+#endif /* STAT64_SUPPORT */
+
+#ifdef __APPLE__
+#ifdef __LP64__
+getattrlist;int;(const char *path, void *attrList, void *attrBuf, size_t attrBufSize, unsigned int options);(path, attrList, attrBuf, attrBufSize, options)
+#ifdef HAVE_FGETATTRLIST
+fgetattrlist;int;(int fd, void *attrList, void *attrBuf, size_t attrBufSize, unsigned int options);(fd, attrList, attrBuf, attrBufSize, options)
+#endif
+#else
+getattrlist;int;(const char *path, void *attrList, void *attrBuf, size_t attrBufSize, unsigned long options);(path, attrList, attrBuf, attrBufSize, options)
+#ifdef HAVE_FGETATTRLIST
+fgetattrlist;int;(int fd, void *attrList, void *attrBuf, size_t attrBufSize, unsigned long options);(fd, attrList, attrBuf, attrBufSize, options)
+#endif
+#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_5
+getattrlist$UNIX2003;int;(const char *path, void *attrList, void *attrBuf, size_t attrBufSize, unsigned long options);(path, attrList, attrBuf, attrBufSize, options)
+#endif
+#endif
+#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_5
+lstat$INODE64;int;(const char *file_name, struct stat *buf);(file_name, buf)
+stat$INODE64;int;(const char *file_name, struct stat *buf);(file_name, buf)
+fstat$INODE64;int;(int fd, struct stat *buf);(fd, buf)
+#endif
+#endif /* ifdef __APPLE__ */
+
+WRAP_MKNOD;int;MKNOD_ARG(int ver, const char *pathname, mode_t mode, dev_t XMKNOD_FRTH_ARG dev);MKNOD_ARG(ver, pathname, mode, dev);MKNOD
+
+#ifdef HAVE_FSTATAT
+#ifdef HAVE_MKNODAT
+WRAP_MKNODAT;int;MKNODAT_ARG(int ver, int dir_fd, const char *pathname, mode_t mode, dev_t dev);MKNODAT_ARG(ver, dir_fd, pathname, mode, dev);MKNODAT
+#endif /* HAVE_MKNODAT */
+#endif /* HAVE_FSTATAT */
+
+/*opendir;DIR *;(const char *name);(name)*/
+/*closedir;int;(DIR *dir);(dir)*/
+/*readdir;struct dirent *;(DIR *dir);(dir)*/
+/*readlink;READLINK_RETVAL_TYPE;(const char *path, READLINK_BUF_TYPE *buf, READLINK_BUFSIZE_TYPE bufsize);(path, buf, bufsize)*/
+/*telldir;off_t;(DIR *dir);(dir)*/
+
+chown;int;(const char *path, uid_t owner, gid_t group);(path, owner, group)
+lchown;int;(const char *path, uid_t owner, gid_t group);(path, owner, group)
+fchown;int;(int fd, uid_t owner, gid_t group);(fd, owner, group)
+chmod;int;(const char *path, mode_t mode);(path, mode)
+fchmod;int;(int fd, mode_t mode);(fd, mode)
+#if defined HAVE_LCHMOD
+lchmod;int;(const char *path, mode_t mode);(path, mode)
+#endif
+#if defined __APPLE__ && !defined __LP64__
+#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_5
+lchown$UNIX2003;int;(const char *path, uid_t owner, gid_t group);(path, owner, group)
+chmod$UNIX2003;int;(const char *path, mode_t mode);(path, mode)
+fchmod$UNIX2003;int;(int fd, mode_t mode);(fd, mode)
+#endif
+#endif /* if defined __APPLE__ && !defined __LP64__ */
+mkdir;int;(const char *path, mode_t mode);(path, mode)
+unlink;int;(const char *pathname);(pathname)
+rmdir;int;(const char *pathname);(pathname)
+remove;int;(const char *pathname);(pathname)
+rename;int;(const char *oldpath, const char *newpath);(oldpath, newpath)
+/*__execve;int;(const char *path, char *const argv[], char *const envp[]);(path,argv,envp)*/
+/*execve;int;(const char *path, char *const argv[], char *const envp[]);(path,argv,envp)*/
+
+#ifdef FAKEROOT_FAKENET
+fork;pid_t;(void);()
+vfork;pid_t;(void);()
+close;int;(int fd);(fd)
+dup2;int;(int oldfd, int newfd);(oldfd, newfd)
+#endif /* FAKEROOT_FAKENET */
+
+/* for fakeroot */
+
+getuid;uid_t;(void);()
+getgid;gid_t;(void);()
+geteuid;uid_t;(void);()
+getegid;gid_t;(void);()
+setuid;int;(uid_t id);(id)
+setgid;int;(gid_t id);(id)
+seteuid;int;(uid_t id);(id)
+setegid;int;(gid_t id);(id)
+setreuid;int;(SETREUID_ARG ruid, SETREUID_ARG euid);(ruid, euid)
+setregid;int;(SETREGID_ARG rgid, SETREGID_ARG egid);(rgid, egid)
+#if defined __APPLE__ && !defined __LP64__
+#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_5
+setreuid$UNIX2003;int;(SETREUID_ARG ruid, SETREUID_ARG euid);(ruid, euid)
+setregid$UNIX2003;int;(SETREGID_ARG rgid, SETREGID_ARG egid);(rgid, egid)
+#endif
+#endif /* if defined __APPLE__ && !defined __LP64__ */
+#ifdef HAVE_GETRESUID
+getresuid;int;(uid_t *ruid, uid_t *euid, uid_t *suid);(ruid, euid, suid)
+#endif /* HAVE_GETRESUID */
+#ifdef HAVE_GETRESGID
+getresgid;int;(gid_t *rgid, gid_t *egid, gid_t *sgid);(rgid, egid, sgid)
+#endif /* HAVE_GETRESGID */
+#ifdef HAVE_SETRESUID
+setresuid;int;(uid_t ruid, uid_t euid, uid_t suid);(ruid, euid, suid)
+#endif /* HAVE_SETRESUID */
+#ifdef HAVE_SETRESGID
+setresgid;int;(gid_t rgid, gid_t egid, gid_t sgid);(rgid, egid, sgid)
+#endif /* HAVE_SETRESGID */
+#ifdef HAVE_SETFSUID
+setfsuid;uid_t;(uid_t fsuid);(fsuid)
+#endif /* HAVE_SETFSUID */
+#ifdef HAVE_SETFSGID
+setfsgid;gid_t;(gid_t fsgid);(fsgid)
+#endif /* HAVE_SETFSGID */
+initgroups;int;(const char *user, INITGROUPS_SECOND_ARG group);(user, group)
+setgroups;int;(SETGROUPS_SIZE_TYPE size, const gid_t *list);(size, list)
+
+#ifdef HAVE_FSTATAT
+#ifdef HAVE_FCHMODAT
+fchmodat;int;(int dir_fd, const char *path, mode_t mode, int flags);(dir_fd, path, mode, flags)
+#endif /* HAVE_FCHMODAT */
+#ifdef HAVE_FCHOWNAT
+fchownat;int;(int dir_fd, const char *path, uid_t owner, gid_t group, int flags);(dir_fd, path, owner, group, flags)
+#endif /* HAVE_FCHOWNAT */
+#ifdef HAVE_MKDIRAT
+mkdirat;int;(int dir_fd, const char *pathname, mode_t mode);(dir_fd, pathname, mode)
+#endif /* HAVE_MKDIRAT */
+#ifdef HAVE_OPENAT
+openat;int;(int dir_fd, const char *pathname, int flags);(dir_fd, pathname, flags)
+#endif /* HAVE_OPENAT */
+#ifdef HAVE_RENAMEAT
+renameat;int;(int olddir_fd, const char *oldpath, int newdir_fd, const char *newpath);(olddir_fd, oldpath, newdir_fd, newpath)
+#endif /* HAVE_RENAMEAT */
+#ifdef HAVE_UNLINKAT
+unlinkat;int;(int dir_fd, const char *pathname, int flags);(dir_fd, pathname, flags)
+#endif /* HAVE_UNLINKAT */
+#endif /* HAVE_FSTATAT */
+
+#ifdef HAVE_SYS_ACL_H
+acl_set_fd;int;(int fd, acl_t acl);(fd, acl)
+acl_set_file;int;(const char *path_p, acl_type_t type, acl_t acl);(path_p, type, acl)
+#endif /* HAVE_SYS_ACL_H */
+
+#ifdef HAVE_FTS_READ
+fts_read;FTSENT *;(FTS *ftsp);(ftsp)
+#ifdef __APPLE__
+#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_5
+fts_read$INODE64;FTSENT *;(FTS *ftsp);(ftsp)
+#endif
+#endif /* ifdef __APPLE__ */
+#endif /* HAVE_FTS_READ */
+#ifdef HAVE_FTS_CHILDREN
+fts_children;FTSENT *;(FTS *ftsp, int options);(ftsp, options)
+#ifdef __APPLE__
+#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_5
+fts_children$INODE64;FTSENT *;(FTS *ftsp, int options);(ftsp, options)
+#endif
+#endif /* ifdef __APPLE__ */
+#endif /* HAVE_FTS_CHILDREN */
