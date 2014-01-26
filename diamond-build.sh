@@ -1,7 +1,8 @@
 #!/bin/sh
 
-# First we clone buildroot, then change dir and compile 
+# First remove the old build, then clone buildroot, change dir and re-compile 
 #
+/bin/rm -rf ./buildroot
 /usr/bin/git clone http://git.buildroot.net/git/buildroot.git && cd buildroot
 /usr/bin/make menuconfig
 /usr/bin/make
@@ -12,10 +13,10 @@
 cd output/images
 /bin/mkdir -p extra/etc extra/sbin 
 
-# Docker sets the DNS configuration by bind-mounting over /etc/resolv.conf. 
-# This means that /etc/resolv.conf has to be a standard file. 
-# By default, buildroot makes it a symlink. 
-# We have to replace that symlink with a file (an empty file will do).
+# Docker sets the DNS configuration by bind-mounting over /etc/resolv.conf 
+# which means that /etc/resolv.conf has to be a standard file. 
+# By default, buildroot makes it a symlink.  
+# We have to replace that symlink with a file. 
 #
 /usr/bin/touch extra/etc/resolv.conf
 
@@ -26,8 +27,8 @@ cd output/images
 #
 /usr/bin/touch extra/sbin/init
 
-# Then update the tar file on the fly
+# Then update the tar file with "extra" fixing on the fly
 /bin/tar rvf rootfs.tar -C extra .
 
 # Docker import command will bring this image into Docker. We will name it “diamond”
-/usr/bin/docker import - diamond < rootfs.tar
+/usr/bin/docker import - lgsd/diamond < rootfs.tar
