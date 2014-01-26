@@ -1,3 +1,0 @@
-GCC_CFLAGS = -g -Os -DIN_GCC -DCROSS_DIRECTORY_STRUCTURE  -W -Wall -Wno-narrowing -Wwrite-strings -Wcast-qual -Wstrict-prototypes -Wmissing-prototypes -Wold-style-definition  -isystem ./include 
-INHIBIT_LIBC_CFLAGS = 
-TARGET_SYSTEM_ROOT = /home/lsoave/Docker/TMP/buildroot-2013.05/output/toolchain/uClibc_dev/

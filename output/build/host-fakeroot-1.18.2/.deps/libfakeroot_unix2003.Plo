@@ -1,6 +1,0 @@
-libfakeroot_unix2003.lo: libfakeroot_unix2003.c \
- /usr/include/stdc-predef.h /usr/include/x86_64-linux-gnu/bits/predefs.h
-
-/usr/include/stdc-predef.h:
-
-/usr/include/x86_64-linux-gnu/bits/predefs.h:

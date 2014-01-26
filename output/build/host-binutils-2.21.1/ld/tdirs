@@ -1,4 +1,0 @@
-tdir_elf_x86_64=x86_64-buildroot-linux-uclibc
-tdir_elf_i386=i386-buildroot-linux-uclibc
-tdir_i386linux=i386-buildroot-linux-uclibcaout
-tdir_elf_l1om=x86_64-buildroot-linux-uclibc

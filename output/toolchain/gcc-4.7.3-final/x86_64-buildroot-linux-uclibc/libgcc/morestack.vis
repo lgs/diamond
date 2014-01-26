@@ -1,8 +1,0 @@
-	.hidden __morestack_non_split
-	.hidden __morestack
-	.hidden DW.ref.__gcc_personality_v0
-	.hidden __morestack_large_model
-	.hidden __stack_split_initialize
-	.hidden __morestack_get_guard
-	.hidden __morestack_set_guard
-	.hidden __morestack_make_guard

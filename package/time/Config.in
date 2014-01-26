@@ -1,6 +1,0 @@
-config BR2_PACKAGE_TIME
-	bool "time"
-	help
-	  The GNU time utility.
-
-	  http://savannah.gnu.org/projects/time/

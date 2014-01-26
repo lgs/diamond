@@ -1,9 +1,0 @@
-#!/bin/sh
-. ./defs || exit 1
-
-if run_fakeroot -- true
-then
- true
-else
- false
-fi

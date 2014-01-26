@@ -1,4 +1,0 @@
-uClibc-0.9.33.2-bits-time.h-sync-with-glibc-2.16.patch
-uClibc-0.9.33.2-define-MSG_CMSG_CLOEXEC.patch
-uClibc-0.9.33.2-dup3.patch
-uClibc-0.9.33.2-OpenWRT-140-avr32_atomic_fix.patch

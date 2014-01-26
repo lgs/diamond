@@ -1,4 +1,0 @@
-global mfconfig_libs
-set mfconfig_libs "-ldl "
-global libmudflapth
-set libmudflapth "1"

@@ -1,6 +1,0 @@
-config BR2_PACKAGE_LIBSIGSEGV
-	bool "libsigsegv"
-	help
-	  Library for handling page faults in user mode.
-
-	  http://libsigsegv.sourceforge.net/
