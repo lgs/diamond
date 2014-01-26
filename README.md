@@ -4,7 +4,7 @@ Diamond
 
 #### Here it comes Diamond base image 
 
-Diamond is the smallest lightweight Docker container on the planet. With a footprint of 1.367 MB, it is even smaller than busybox:
+Diamond is the smallest lightweight Docker container on the planet. With a footprint of 1.215 MB, it is even smaller than busybox:
 
     REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
     lgsd/diamond        latest              b87c1c99c103        3 seconds ago       1.215 MB (virtual 1.215 MB)
@@ -15,4 +15,4 @@ Based on Linux kernel 3.11.0-14-generic target on 64 bits arch (x86_64 GNU/Linux
 
 ## Copyright
 
-Copyright (c) 2013 Luca G. Soave
+Copyright (c) 2013-2014 Luca G. Soave
