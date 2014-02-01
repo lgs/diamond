@@ -13,12 +13,12 @@ Diamond is the smallest lightweight Docker container on the planet. With a footp
 
 Written as a part of my editorial project "[Docker Essentials](https://leanpub.com/docker_essentials)" e-book. Made with [Buildroot](http://buildroot.uclibc.org/): making Embedded Linux easy.
 
-## Use 
+#### Use 
 
     $ docker pull lgsd/diamond
-    $ docker run -i -t image-name lgsd/diamond /bin/sh
+    $ docker run -i -t lgsd/diamond sh
 
-## Re-building
+#### Re-building
 
 Rebuild by import current buildroot rootfs image:
 
