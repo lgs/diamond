@@ -13,4 +13,4 @@ MAINTAINER Luca G. Soave <luca.soave@gmail.com>
 # otherwise the first lines would be cached by docker and
 # you would always use non up-to-date versions of your OS
 
-ENV REFRESHED_AT 2013-12-03
+ENV REFRESHED_AT 2014-26-01
