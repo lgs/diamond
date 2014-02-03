@@ -20,10 +20,20 @@ Written as a part of my editorial project: "[Docker Essentials](https://leanpub.
 
 ## Re-building
 
-Rebuild by import current buildroot rootfs image:
+Rebuild the Diamond by clone the current ` https://github.com/lgs/diamond ` source code
 
     $ git clone https://github.com/lgs/diamond.git && cd diamond
-    $ /usr/bin/docker import - lgsd/diamond < ./buildroot/output/images/rootfs.tar
+
+Run the tarmaker meta-builder but don't forget to set “target architecture” menu. Select x86_64 when required by the GUI and exit 
+
+    $ sh -x diamond-build.sh 
+
+Now import with `docker import`, the new compiled rootfs image
+
+    $ docker import - diamond < ./rootfs.tar
+    $ docker run -i -t diamond sh
+    / # uname -a
+    Linux 6c10f137a0d5 3.11.0-15-generic #25-Ubuntu SMP Thu Jan 30 17:22:01 UTC 2014 x86_64 GNU/Linux
 
 ## Copyright
 
