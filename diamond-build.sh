@@ -1,6 +1,8 @@
 #!/bin/sh
 
-# First remove the old build, then clone buildroot, change dir and re-compile 
+# First remove the old build form current directory, 
+# then clone buildroot from the source conde 
+# change dir and re-compile 
 #
 /bin/rm -rf ./buildroot
 /usr/bin/git clone http://git.buildroot.net/git/buildroot.git && cd buildroot
@@ -22,13 +24,15 @@ cd output/images
 
 # Likewise, Docker “injects” itself within containers by bind-mounting over /sbin/init. 
 # This means that /sbin/init should be a regular mount point file as well. 
-# By default, buildroot makes it a symlink to busybox. 
-# We will change that, too.
+# By default, buildroot makes it a symlink, change that too.
 #
 /usr/bin/touch extra/sbin/init
 
 # Then update the tar file with "extra" fixing on the fly
 /bin/tar rvf rootfs.tar -C extra .
 
-# Docker import command will bring this image into Docker. We will name it “diamond”
-/usr/bin/docker import - lgsd/diamond < rootfs.tar
+# Now move it to the project root directory
+cp ./rootfs.tar ../../ 
+
+echo "Docker import command will bring this image into Docker. We will name it “diamond”"
+echo "/usr/bin/docker import - diamond < rootfs.tar"
