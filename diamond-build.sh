@@ -4,7 +4,6 @@
 # then clone buildroot from the source conde and change dir 
 # now re-compile 
 #
-[ -d ./buildroot ] && rm -rf ./buildroot
 git clone http://git.buildroot.net/git/buildroot.git && cd buildroot
 make menuconfig
 make
@@ -29,10 +28,20 @@ touch extra/etc/resolv.conf
 touch extra/sbin/init
 
 # Then update the tar file with "extra" fixing on the fly
+#
 tar rvf rootfs.tar -C extra .
 
 # Now move it to the project root directory
+#
 cp -p ./rootfs.tar ../../../ 
 
 echo "Docker import command will bring this image into Docker. We will name it “diamond”"
 echo "/usr/bin/docker import - diamond < rootfs.tar"
+
+# Removing all buildroot tree from the repository, fix Docker Index build issue
+# see the thread: https://github.com/dotcloud/stackbrew/pull/28#issuecomment-34165644
+#
+[ -d ./buildroot ] && rm -rf ./buildroot
+
+
+
