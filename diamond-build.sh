@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # First remove the old build form current directory
-# then clone buildroot from the source conde and change dir 
+# then clone buildroot from the source code and change dir 
 # now re-compile 
 #
 git clone http://git.buildroot.net/git/buildroot.git && cd buildroot
