@@ -38,4 +38,4 @@ Now import with `docker import`, the new compiled rootfs image
 
 ## Copyright
 
-Copyright (c) 2013-2014 Luca G. Soave
+Copyright (c) 2013-2016 Luca G. Soave
